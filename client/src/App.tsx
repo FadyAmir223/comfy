@@ -3,7 +3,7 @@
 const App = () => {
   return (
     <div className="">
-      <div className=""></div>
+      <img src="" alt="" />
     </div>
   );
 };
