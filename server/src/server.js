@@ -45,5 +45,5 @@ const server = https.createServer(
 );
 
 server.listen(SERVER_PORT, () => {
-  console.log(serverUrl);
+  console.log('\x1b[36m', serverUrl, '\x1b[0m');
 });
