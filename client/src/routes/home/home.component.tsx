@@ -23,7 +23,8 @@ const Home: FC<{}> = () => {
     formData.append('filename', username);
 
     try {
-      await axios.post(`${url}/api/image`, formData);
+      const { data } = await axios.post(`${url}/api/image`, formData);
+      console.log(data);
     } catch (error) {
       console.error(error);
     }

@@ -23,7 +23,8 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: '../server/public',
+    // outDir: '../server/public',
+    outDir: '../build/public',
     emptyOutDir: true,
   },
 });

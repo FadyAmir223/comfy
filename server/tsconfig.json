@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "target": "ES2020",
+    "sourceMap": false,
+    "outDir": "dist",
+
+    // "skipLibCheck": true,
+    "removeComments": true,
+
+    /* Linting */
+    //  "strict": true,
+    //  "noUnusedLocals": true,
+    //  "noUnusedParameters": true,
+  },
+  "include": ["src"]
+}
