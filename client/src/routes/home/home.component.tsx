@@ -44,7 +44,7 @@ const Home: FC<{}> = () => {
   };
 
   return (
-    <div>
+    <div className="">
       <input
         className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
         type="file"
@@ -68,6 +68,14 @@ const Home: FC<{}> = () => {
       {retImg && (
         <img src={retImg} alt="retrieve" className="max-w-[300px] mt-3" />
       )}
+      <div className="bg-black flex justify-between">
+        <img
+          src="https://avatars.githubusercontent.com/u/11247099"
+          alt=""
+          className="w-1/2"
+        />
+        <img src="images/products/product-2.jpg" alt="" className="w-1/2" />
+      </div>
     </div>
   );
 };

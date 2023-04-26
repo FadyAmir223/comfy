@@ -15,7 +15,16 @@ const app = express();
 
 app.use(cors({ origin: clientUrl }));
 
-app.use(helmet());
+// app.use(helmet());
+
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+      'img-src': ["'self'", '*', 'blob:'],
+    },
+  })
+);
 
 app.use(express.json());
 

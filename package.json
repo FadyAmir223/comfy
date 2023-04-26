@@ -10,7 +10,8 @@
     "server": "npm run dev --prefix server",
     "client": "npm run dev --prefix client",
     "dev": "npm-run-all --parallel server client",
-    "build": "npm run build --prefix client && npm run build --prefix server",
+    "public": "cross-env NODE_ENV=production node server/server.cjs",
+    "build": "npm run build --prefix client && npm run build --prefix server && npm run public --prefix build",
     "build-cluster": "npm run build --prefix client && npm run cluster --prefix server",
     "test": "npm test --prefix client && npm test --prefix server"
   },

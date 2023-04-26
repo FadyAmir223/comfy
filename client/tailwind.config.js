@@ -12,6 +12,9 @@ module.exports = {
       xl: '1440px',
     },
     extend: {
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'],
+      },
       // colors: {
       //   facebook: '#1877f2',
       //   twitter: '#1da1f2',
@@ -19,9 +22,6 @@ module.exports = {
       //   reddit: '#ff4500',
       //   whatsapp: '#25d366',
       //   linkedin: '#0a66c2',
-      // },
-      // fontFamily: {
-      //   sans: ['Roboto', 'sans-serif'],
       // },
       // animation: {
       //   scale: 'scale 3s linear infinite',
