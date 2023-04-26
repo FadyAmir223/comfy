@@ -10,7 +10,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const clientUrl = `${CLIENT_URL}:${CLIENT_PORT}`;
 const app = express();
 app.use(cors({ origin: clientUrl }));
-app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'img-src': ["'self'", '*', 'blob:'],
+    },
+}));
 app.use(express.json());
 if (NODE_ENV === 'development')
     app.use(morgan('dev'));
