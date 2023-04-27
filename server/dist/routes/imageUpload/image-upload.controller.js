@@ -1,14 +1,8 @@
-import express from 'express';
-import multer from 'multer';
 import sharp from 'sharp';
-import fs from 'fs';
 import { resolve } from 'path';
-const imageRoute = express.Router();
-const uploadPath = 'upload/';
-if (!fs.existsSync(uploadPath))
-    fs.mkdirSync(uploadPath);
-const upload = multer();
-imageRoute.post('/', upload.single('image'), async (req, res) => {
+import { readdir } from 'fs';
+import uploadPath from '../../utils/uploadPath.js';
+const handleUploadImage = async (req, res) => {
     const imageBuffer = req?.file?.buffer;
     if (!imageBuffer)
         return res.status(500).json({ success: false });
@@ -20,9 +14,9 @@ imageRoute.post('/', upload.single('image'), async (req, res) => {
     catch {
         return res.status(422).json({ message: "image didn't upload" });
     }
-});
-imageRoute.get('/:filename', (req, res) => {
-    fs.readdir(uploadPath, (error, files) => {
+};
+const handleGetImageByName = (req, res) => {
+    readdir(uploadPath, (error, files) => {
         if (error)
             return res.status(500).json({
                 message: 'failed to retrieve image',
@@ -33,5 +27,5 @@ imageRoute.get('/:filename', (req, res) => {
             ? res.sendFile(resolve(uploadPath + matchingFiles[0]))
             : res.status(404).json({ success: false, message: 'image not found' });
     });
-});
-export default imageRoute;
+};
+export { handleUploadImage, handleGetImageByName };

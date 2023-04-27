@@ -1,7 +1,7 @@
 import express from 'express';
 
-import imageRoute from './imageUpload/imageUpload.js';
-import fileRoute from './fileUpload/fileUpload.js';
+import imageRoute from './imageUpload/image-upload.route.js';
+import fileRoute from './fileUpload/file-upload.route.js';
 
 const api = express.Router();
 

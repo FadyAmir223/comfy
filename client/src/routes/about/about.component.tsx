@@ -17,9 +17,11 @@ function About() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!file) return;
+
     const formData = new FormData();
-    formData.append('file', file);
-    formData.append('file', username);
+    const fileName = `${username}-${file.name}`;
+    formData.append('file', file, fileName);
+
     try {
       const { data } = await axios.post(`${url}/api/file`, formData);
       console.log(data);
@@ -28,18 +30,24 @@ function About() {
     }
   };
 
-  const handleRetrieve = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleRetrieve = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (filename) {
-      fetch(`${url}/api/file/${filename}`)
-        .then((response) => response.blob())
-        .then((blob) => {
-          const fileUrl = URL.createObjectURL(blob);
-          setFileUrl(fileUrl);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    if (!filename) return;
+
+    try {
+      const { data, headers } = await axios.get(`${url}/api/file/${filename}`, {
+        responseType: 'blob',
+      });
+
+      const blob = new Blob([data]);
+      const fileUrl = URL.createObjectURL(blob);
+      const contentType = headers['content-type'];
+
+      contentType.includes('text/plain')
+        ? console.log(await blob.text())
+        : setFileUrl(fileUrl);
+    } catch (error) {
+      console.error(error);
     }
   };
 

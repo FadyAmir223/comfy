@@ -19,8 +19,9 @@ const Home: FC<{}> = () => {
     event.preventDefault();
     if (!image) return;
     const formData = new FormData();
-    formData.append('image', image);
-    formData.append('filename', username);
+
+    const fileName = `${username}-${image.name}`;
+    formData.append('image', image, fileName);
 
     try {
       const { data } = await axios.post(`${url}/api/image`, formData);
@@ -32,8 +33,7 @@ const Home: FC<{}> = () => {
 
   const handleRetrieve = async () => {
     try {
-      const filename = username;
-      const { data } = await axios.get(`${url}/api/image/${filename}`, {
+      const { data } = await axios.get(`${url}/api/image/${username}`, {
         responseType: 'blob',
       });
       const blob = new Blob([data], { type: 'image/jpeg' });
@@ -63,19 +63,11 @@ const Home: FC<{}> = () => {
         retrive
       </button>
       {previewURL && (
-        <img src={previewURL} alt="Preview" className="max-w-[300px] mt-3" />
+        <img src={previewURL} alt="preview" className="max-w-[300px] mt-3" />
       )}
       {retImg && (
         <img src={retImg} alt="retrieve" className="max-w-[300px] mt-3" />
       )}
-      <div className="bg-black flex justify-between">
-        <img
-          src="https://avatars.githubusercontent.com/u/11247099"
-          alt=""
-          className="w-1/2"
-        />
-        <img src="images/products/product-2.jpg" alt="" className="w-1/2" />
-      </div>
     </div>
   );
 };
