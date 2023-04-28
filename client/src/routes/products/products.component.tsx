@@ -1,11 +1,40 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+
+const url = import.meta.env.VITE_SERVER_URL;
 
 const Products = () => {
+  const [imgUrl, setImgUrl] = useState('');
+
   return (
-    <div>
-      <h1>Products</h1>
-      <Link to={'1'}>product</Link>
-    </div>
+    <>
+      <div className="flex items-center justify-center space-x-4 mt-10">
+        <a
+          href={`${url}/api/auth/secret`}
+          className="text-blue-500 hover:text-blue-700"
+        >
+          secret
+        </a>
+        <a
+          href={`${url}/api/auth/google`}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+        >
+          login
+        </a>
+        <a
+          href={`${url}/api/auth/logout`}
+          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
+        >
+          logout
+        </a>
+      </div>
+      {imgUrl && (
+        <img
+          src={imgUrl}
+          alt="profile picture"
+          className="w-16 h-16 rounded-full mx-auto mt-6"
+        />
+      )}
+    </>
   );
 };
 

@@ -2,9 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import uploadPath from '../../utils/uploadPath.js';
 
-// const uploadPath = 'upload/';
-// if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath);
-
 function uploadFile(req, res) {
   res.status(201).json({ message: 'file uploaded successfully' });
 }

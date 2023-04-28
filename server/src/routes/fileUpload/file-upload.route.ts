@@ -4,7 +4,6 @@ import fileController from './file-upload.controller.js';
 import uploadPath from '../../utils/uploadPath.js';
 
 const fileRoute = express.Router();
-// const uploadPath = 'upload/';
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

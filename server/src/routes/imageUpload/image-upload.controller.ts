@@ -3,12 +3,6 @@ import { resolve } from 'path';
 import { readdir } from 'fs';
 import uploadPath from '../../utils/uploadPath.js';
 
-// const uploadPath = './upload/';
-
-// const rootDir = path.parse(process.cwd());
-// const uploadPath = path.join(rootDir.dir, rootDir.base, 'upload');
-// if (!existsSync(uploadPath)) mkdirSync(uploadPath);
-
 const handleUploadImage = async (req, res) => {
   const imageBuffer = req?.file?.buffer;
   if (!imageBuffer) return res.status(500).json({ success: false });

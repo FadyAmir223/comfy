@@ -18,10 +18,12 @@ app.use(cors({ origin: clientUrl }));
 // app.use(helmet());
 
 app.use(
-  helmet.contentSecurityPolicy({
-    directives: {
-      ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-      'img-src': ["'self'", '*', 'blob:'],
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        'default-src': ["'self'"],
+        'img-src': ["'self'", 'blob:', '*'],
+      },
     },
   })
 );
