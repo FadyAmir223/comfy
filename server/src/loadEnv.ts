@@ -4,8 +4,16 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const { CLIENT_ID, CLIENT_SECRET, SESSION_KEY_1, SESSION_KEY_2 } =
-  process.env;
+export const {
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  FACEBOOK_APP_ID,
+  FACEBOOK_APP_SECRET,
+  GITHUB_CLIENT_ID,
+  GITHUB_CLIENT_SECRET,
+  SESSION_KEY_1,
+  SESSION_KEY_2,
+} = process.env;
 
 dotenv.config({
   path: join(
