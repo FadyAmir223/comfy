@@ -12,7 +12,7 @@ import {
   CLIENT_PORT,
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
-} from '../../loadEnv.js';
+} from '../../utils/loadEnv.js';
 
 function verifyGoogleCallback(accessToken, refreshToken, profile, done) {
   // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
@@ -30,19 +30,6 @@ const AUTH_OPTIONS = {
 };
 
 passport.use(new googleStrategy(AUTH_OPTIONS, verifyGoogleCallback));
-
-passport.serializeUser((user, done) => {
-  const { sub, name, picture, email } = user._json;
-  done(null, { sub, name, picture, email });
-});
-
-passport.deserializeUser((obj, done) => {
-  // search userID in database and know its authority
-  // User.findById(id).then(user => {
-  //   done(null, user)
-  // })
-  done(null, obj);
-});
 
 const google = express.Router();
 

@@ -1,6 +1,6 @@
 import https from 'https';
 import { readFileSync } from 'fs';
-import { SERVER_URL, SERVER_PORT } from './loadEnv.js';
+import { SERVER_URL, SERVER_PORT } from './utils/loadEnv.js';
 import app from './app.js';
 const server = https.createServer({
     key: readFileSync('key.pem'),

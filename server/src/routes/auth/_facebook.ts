@@ -12,7 +12,7 @@ import {
   CLIENT_PORT,
   FACEBOOK_APP_ID,
   FACEBOOK_APP_SECRET,
-} from '../../loadEnv.js';
+} from '../../utils/loadEnv.js';
 
 function verifyFacebookCallback(accessToken, refreshToken, profile, done) {
   // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
@@ -37,18 +37,6 @@ const AUTH_OPTIONS = {
 
 passport.use(new facebookStrategy(AUTH_OPTIONS, verifyFacebookCallback));
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((obj, done) => {
-  // search userID in database and know its authority
-  // User.findById(id).then(user => {
-  //   done(null, user)
-  // })
-  done(null, obj);
-});
-
 const facebook = express.Router();
 
 facebook.get('/', passport.authenticate('facebook'));
@@ -61,5 +49,12 @@ facebook.get(
     session: true,
   })
 );
+
+/*
+  useEffect(() => {
+    if (location.hash === '#_=_')
+      history.pushState('', document.title, location.pathname);
+  }, []);
+*/
 
 export default facebook;

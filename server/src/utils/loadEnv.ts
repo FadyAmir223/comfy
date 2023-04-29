@@ -11,6 +11,8 @@ export const {
   FACEBOOK_APP_SECRET,
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
+  TWITTER_API_KEY,
+  TWITTER_API_SECRET,
   SESSION_KEY_1,
   SESSION_KEY_2,
 } = process.env;
@@ -18,6 +20,7 @@ export const {
 dotenv.config({
   path: join(
     dirname(fileURLToPath(import.meta.url)),
+    '..',
     '..',
     process.env.NODE_ENV === 'production'
       ? '.env.production'

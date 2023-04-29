@@ -31,6 +31,12 @@ const Products = () => {
         >
           github
         </a>
+        <a
+          href={`${url}/api/auth/twitter`}
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+        >
+          twitter
+        </a>
       </div>
 
       <div className="flex items-center justify-center space-x-4 mt-5">

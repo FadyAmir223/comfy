@@ -12,7 +12,7 @@ import {
   CLIENT_PORT,
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
-} from '../../loadEnv.js';
+} from '../../utils/loadEnv.js';
 
 function verifyGithubCallback(accessToken, refreshToken, profile, done) {
   // User.findOrCreate({ githubId: profile.id }, function (err, user) {
@@ -30,20 +30,6 @@ const AUTH_OPTIONS = {
 };
 
 passport.use(new githubStrategy(AUTH_OPTIONS, verifyGithubCallback));
-
-passport.serializeUser((user, done) => {
-  console.log('serializeUser');
-  done(null, user);
-});
-
-passport.deserializeUser((obj, done) => {
-  console.log('deserializeUser');
-  // search userID in database and know its authority
-  // User.findById(id).then(user => {
-  //   done(null, user)
-  // })
-  done(null, obj);
-});
 
 const github = express.Router();
 
