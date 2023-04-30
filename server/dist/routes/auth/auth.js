@@ -13,7 +13,7 @@ const auth = express.Router();
 auth.use(cookieSession({
     name: 'session',
     keys: [SESSION_KEY_1, SESSION_KEY_2],
-    maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 30 * 1000,
 }));
 auth.use((req, res, next) => {
     if (req.session && !req.session.regenerate)

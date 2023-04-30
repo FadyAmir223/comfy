@@ -17,7 +17,7 @@ app.use(
   cors({
     origin: clientUrl,
     methods: 'GET,POST,DELETE,PUT',
-    credentials: true, // session cookie
+    credentials: true,
   })
 );
 

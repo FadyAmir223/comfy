@@ -6,10 +6,9 @@
     "sourceMap": false,
     "outDir": "dist",
 
-    // "skipLibCheck": true,
+    "skipLibCheck": true,
     "removeComments": true,
 
-    /* Linting */
     // "strict": true,
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,

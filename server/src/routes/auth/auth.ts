@@ -2,7 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import cookieSession from 'cookie-session';
 // import expressSession from 'express-session';
-import cookieParser from 'cookie-parser'; // parse cookie header
+import cookieParser from 'cookie-parser';
 
 import { checkLoggedIn, checkPermissions } from './checks.js';
 import './passportSetup.js';
@@ -25,7 +25,8 @@ auth.use(
   cookieSession({
     name: 'session',
     keys: [SESSION_KEY_1, SESSION_KEY_2],
-    maxAge: 24 * 60 * 60 * 1000,
+    // maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 30 * 1000,
   })
 );
 
@@ -65,8 +66,6 @@ auth.get('/secret', checkLoggedIn, checkPermissions, (req, res) =>
 );
 
 export default auth;
-
-// Linkedin
 
 // refresh token
 

@@ -18,6 +18,8 @@ function verifyGoogleCallback(accessToken, refreshToken, profile, done) {
   // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
   //   return cb(err, user);
   // });
+  console.log({ refreshToken });
+
   done(null, profile);
 }
 
@@ -36,7 +38,9 @@ const google = express.Router();
 google.get(
   '/',
   passport.authenticate('google', {
-    scope: ['profile', 'email'],
+    scope: ['email', 'profile'],
+    accessType: 'offline', // request refreshToken
+    // prompt: 'consent',
   })
 );
 
