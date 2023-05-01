@@ -8,4 +8,4 @@ dotenv.config({
         ? '.env.production'
         : '.env.development'),
 });
-export const { NODE_ENV, CLIENT_URL, CLIENT_PORT, SERVER_URL, SERVER_PORT } = process.env;
+export const { NODE_ENV, CLIENT_URL, CLIENT_PORT, SERVER_URL, SERVER_PORT, MONGO_URL, } = process.env;
