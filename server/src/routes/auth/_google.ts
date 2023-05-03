@@ -13,15 +13,7 @@ import {
   GOOGLE_CLIENT_ID,
   GOOGLE_CLIENT_SECRET,
 } from '../../utils/loadEnv.js';
-
-function verifyGoogleCallback(accessToken, refreshToken, profile, done) {
-  // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-  //   return cb(err, user);
-  // });
-  console.log({ refreshToken });
-
-  done(null, profile);
-}
+import verifyCallback from './verify-callback.js';
 
 const AUTH_OPTIONS = {
   clientID: GOOGLE_CLIENT_ID,
@@ -31,7 +23,7 @@ const AUTH_OPTIONS = {
   }:${SERVER_PORT}/api/auth/google/callback`,
 };
 
-passport.use(new googleStrategy(AUTH_OPTIONS, verifyGoogleCallback));
+passport.use(new googleStrategy(AUTH_OPTIONS, verifyCallback));
 
 const google = express.Router();
 

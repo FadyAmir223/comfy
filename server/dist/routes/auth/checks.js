@@ -1,11 +1,11 @@
 function checkLoggedIn(req, res, next) {
-    const isLoggedIn = true;
+    const isLoggedIn = req.isAuthenticated() && req.user;
     if (!isLoggedIn)
-        return res.status(401).json({ error: 'you must log in' });
+        return res.status(401).json({ error: 'you must login' });
     next();
 }
 function checkPermissions(req, res, next) {
-    const isAuthenticated = req.isAuthenticated() && req.user;
+    const isAuthenticated = true;
     if (!isAuthenticated)
         return res.status(403).json({ error: 'forbidden' });
     next();

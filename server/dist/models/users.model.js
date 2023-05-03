@@ -1,15 +1,11 @@
 import users from './users.mongo.js';
-const user = {
-    id: '23',
-    displayName: 'fezza',
+const findOrCreateUser = async (user) => {
+    return await users.findOneAndUpdate({ id: user.id }, user, { upsert: true });
 };
-const saveUser = async () => {
-    await users.updateOne(user, user, { upsert: true });
-};
-const getUser = async () => {
-    return await users.find({ id: '23' }, '-_id -__v');
+const getUser = async (id) => {
+    return await users.find({ id }, '-_id -__v');
 };
 const getUsers = async () => {
-    return await users.find({});
+    return await users.find();
 };
-export { saveUser, getUser, getUsers };
+export { findOrCreateUser, getUser, getUsers };

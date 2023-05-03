@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "tsc && concurrently \"tsc -w\" \"cross-env NODE_ENV=development nodemon dist/server.js\"",
+    "dev": "concurrently \"tsc -w\" \"cross-env NODE_ENV=development nodemon dist/server.js\"",
     "build": "cross-env NODE_ENV=production node dist/server.js",
     "cluster": "pm2 start dist/server.js -i max",
     "test": "tsc && jest",

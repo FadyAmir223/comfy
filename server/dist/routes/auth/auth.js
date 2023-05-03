@@ -3,7 +3,7 @@ import passport from 'passport';
 import cookieSession from 'cookie-session';
 import cookieParser from 'cookie-parser';
 import { checkLoggedIn, checkPermissions } from './checks.js';
-import './passportSetup.js';
+import './passport-setup.js';
 import google from './_google.js';
 import facebook from './_facebook.js';
 import github from './_github.js';

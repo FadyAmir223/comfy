@@ -3,15 +3,13 @@ import express from 'express';
 import passport from 'passport';
 import { Strategy as twitterStrategy } from 'passport-twitter';
 import { SERVER_URL, SERVER_PORT, CLIENT_URL, CLIENT_PORT, TWITTER_API_KEY, TWITTER_API_SECRET, } from '../../utils/loadEnv.js';
-function verifyTwitterCallback(accessToken, refreshToken, profile, done) {
-    done(null, profile);
-}
+import verifyCallback from './verify-callback.js';
 const AUTH_OPTIONS = {
     consumerKey: TWITTER_API_KEY,
     consumerSecret: TWITTER_API_SECRET,
     callbackURL: `https://${parse(SERVER_URL).hostname}:${SERVER_PORT}/api/auth/twitter/callback`,
 };
-passport.use(new twitterStrategy(AUTH_OPTIONS, verifyTwitterCallback));
+passport.use(new twitterStrategy(AUTH_OPTIONS, verifyCallback));
 const twitter = express.Router();
 twitter.get('/', passport.authenticate('twitter'));
 twitter.get('/callback', passport.authenticate('twitter', {

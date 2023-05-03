@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    imgUrl: String,
     accessToken: String,
     refreshToken: String,
 });

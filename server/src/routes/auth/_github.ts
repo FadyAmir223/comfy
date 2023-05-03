@@ -13,13 +13,7 @@ import {
   GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET,
 } from '../../utils/loadEnv.js';
-
-function verifyGithubCallback(accessToken, refreshToken, profile, done) {
-  // User.findOrCreate({ githubId: profile.id }, function (err, user) {
-  //   return cb(err, user);
-  // });
-  done(null, profile);
-}
+import verifyCallback from './verify-callback.js';
 
 const AUTH_OPTIONS = {
   clientID: GITHUB_CLIENT_ID,
@@ -29,7 +23,7 @@ const AUTH_OPTIONS = {
   }:${SERVER_PORT}/api/auth/github/callback`,
 };
 
-passport.use(new githubStrategy(AUTH_OPTIONS, verifyGithubCallback));
+passport.use(new githubStrategy(AUTH_OPTIONS, verifyCallback));
 
 const github = express.Router();
 

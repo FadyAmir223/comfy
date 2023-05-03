@@ -13,14 +13,7 @@ import {
   TWITTER_API_KEY,
   TWITTER_API_SECRET,
 } from '../../utils/loadEnv.js';
-
-function verifyTwitterCallback(accessToken, refreshToken, profile, done) {
-  // User.findOrCreate({ twitterId: profile.id }, function (err, user) {
-  //   return cb(err, user);
-  // });
-  // console.log(profile);
-  done(null, profile);
-}
+import verifyCallback from './verify-callback.js';
 
 const AUTH_OPTIONS = {
   consumerKey: TWITTER_API_KEY,
@@ -30,7 +23,7 @@ const AUTH_OPTIONS = {
   }:${SERVER_PORT}/api/auth/twitter/callback`,
 };
 
-passport.use(new twitterStrategy(AUTH_OPTIONS, verifyTwitterCallback));
+passport.use(new twitterStrategy(AUTH_OPTIONS, verifyCallback));
 
 const twitter = express.Router();
 

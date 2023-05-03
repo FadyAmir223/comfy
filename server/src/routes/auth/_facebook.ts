@@ -13,13 +13,7 @@ import {
   FACEBOOK_APP_ID,
   FACEBOOK_APP_SECRET,
 } from '../../utils/loadEnv.js';
-
-function verifyFacebookCallback(accessToken, refreshToken, profile, done) {
-  // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-  //   return cb(err, user);
-  // });
-  done(null, profile);
-}
+import verifyCallback from './verify-callback.js';
 
 const AUTH_OPTIONS = {
   clientID: FACEBOOK_APP_ID,
@@ -27,15 +21,10 @@ const AUTH_OPTIONS = {
   callbackURL: `https://${
     parse(SERVER_URL).hostname
   }:${SERVER_PORT}/api/auth/facebook/callback`,
-  profileFields: [
-    'id',
-    'displayName',
-    // 'email',
-    // 'photos',
-  ],
+  profileFields: ['id', 'displayName', 'email', 'photos'],
 };
 
-passport.use(new facebookStrategy(AUTH_OPTIONS, verifyFacebookCallback));
+passport.use(new facebookStrategy(AUTH_OPTIONS, verifyCallback));
 
 const facebook = express.Router();
 
