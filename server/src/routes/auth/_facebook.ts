@@ -22,6 +22,7 @@ const AUTH_OPTIONS = {
     parse(SERVER_URL).hostname
   }:${SERVER_PORT}/api/auth/facebook/callback`,
   profileFields: ['id', 'displayName', 'email', 'photos'],
+  scope: ['email', 'user_photos'],
 };
 
 passport.use(new facebookStrategy(AUTH_OPTIONS, verifyCallback));

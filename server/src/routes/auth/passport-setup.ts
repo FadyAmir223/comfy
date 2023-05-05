@@ -1,27 +1,31 @@
 import passport from 'passport';
+// import User from '../../models/users.mongo.js';
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user);
 });
 
-passport.deserializeUser((obj, done) => {
-  // search userID in database and know its authority
+passport.deserializeUser(async (obj, done) => {
+  return done(null, obj);
+  // search userID in database and
   // check if access token is expired
-  // if (accessTokenIsExpired) {
-  // use refresh token to get new access token
-  // update the user's record in the database with the new access token
+
+  // try {
+  //   const user = await User.findById(obj); // id
+  //   if (!user) return done(null, false);
+  // know user authority
+  // if (accessTokenIsExpired)
+  // get new accessToken by refreshToken
+  // update user in DB with new access token
+  //   return done(null, user);
+  // } catch (error) {
+  //   return done(error);
   // }
-  // find the user in the database and pass it to the done callback
-  done(null, obj);
 });
 
-// test
-
-const accessTokenIsExpired = (accessToken) => {
-  // const tokenExp = jwt.decode(accessToken).exp;
-
-  const now = Date.now();
-  const expiresIn = accessToken.expires_in || accessToken.expiresIn;
-  const expirationTime = accessToken.created_at + expiresIn * 1000;
-  return now > expirationTime;
-};
+// const isAccessTokenIsExpired = (accessToken) => {
+//   const now = Date.now();
+//   const expiresIn = accessToken.expires_in || accessToken.expiresIn;
+//   const expirationTime = accessToken.created_at + expiresIn * 1000;
+//   return now > expirationTime;
+// };

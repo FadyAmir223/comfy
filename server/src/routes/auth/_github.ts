@@ -3,7 +3,8 @@
 import { parse } from 'url';
 import express from 'express';
 import passport from 'passport';
-import { Strategy as githubStrategy } from 'passport-github2';
+import { Strategy } from 'passport-github2';
+import refresh from 'passport-oauth2-refresh';
 
 import {
   SERVER_URL,
@@ -23,7 +24,11 @@ const AUTH_OPTIONS = {
   }:${SERVER_PORT}/api/auth/github/callback`,
 };
 
-passport.use(new githubStrategy(AUTH_OPTIONS, verifyCallback));
+const githubStrategy = new Strategy(AUTH_OPTIONS, verifyCallback);
+
+passport.use(githubStrategy);
+
+// refresh.use(githubStrategy);
 
 const github = express.Router();
 

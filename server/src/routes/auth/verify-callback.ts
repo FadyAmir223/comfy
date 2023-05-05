@@ -1,26 +1,41 @@
-import { findOrCreateUser } from '../../models/users.model.js';
+import { FACEBOOK_APP_ID, FACEBOOK_APP_SECRET } from '../../utils/loadEnv.js';
+import request from 'request';
 
-// switch (profile.provider) {
-//   case 'google':
-//   case 'facebook':
-//   case 'github':
-//   case 'twitter':
-// }
-
-const verifyCallback = async (accessToken, refreshToken, profile, done) => {
-  const { id, displayName } = profile;
+const verifyCallback = (accessToken, refreshToken, profile, done) => {
+  const { id, displayName, provider } = profile;
   const imgUrl = profile?.photos[0]?.value;
 
-  const user = {
-    id,
-    displayName,
-    imgUrl,
-    accessToken,
-    refreshToken,
-  };
+  if (provider === 'facebook') {
+    const FACEBOOK_GRAPH_API_VERSION = 'v16.0';
 
-  await findOrCreateUser(user);
-  done(null, profile);
+    request(
+      {
+        url: `https://graph.facebook.com/${FACEBOOK_GRAPH_API_VERSION}/oauth/access_token?grant_type=fb_exchange_token&client_id=${FACEBOOK_APP_ID}&client_secret=${FACEBOOK_APP_SECRET}&fb_exchange_token=${accessToken}`,
+        method: 'GET',
+      },
+      (error, response, body) => {
+        if (error) return done(error);
+        const { access_token, expires_in } = JSON.parse(body);
+
+        done(null, {
+          id,
+          displayName,
+          imgUrl,
+          provider,
+          accessToken: access_token,
+        });
+      }
+    );
+  } else {
+    done(null, {
+      id,
+      displayName,
+      imgUrl,
+      provider,
+      accessToken,
+      refreshToken,
+    });
+  }
 };
 
 export default verifyCallback;

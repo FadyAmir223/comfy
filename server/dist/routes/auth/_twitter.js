@@ -1,7 +1,7 @@
 import { parse } from 'url';
 import express from 'express';
 import passport from 'passport';
-import { Strategy as twitterStrategy } from 'passport-twitter';
+import { Strategy } from 'passport-twitter';
 import { SERVER_URL, SERVER_PORT, CLIENT_URL, CLIENT_PORT, TWITTER_API_KEY, TWITTER_API_SECRET, } from '../../utils/loadEnv.js';
 import verifyCallback from './verify-callback.js';
 const AUTH_OPTIONS = {
@@ -9,7 +9,8 @@ const AUTH_OPTIONS = {
     consumerSecret: TWITTER_API_SECRET,
     callbackURL: `https://${parse(SERVER_URL).hostname}:${SERVER_PORT}/api/auth/twitter/callback`,
 };
-passport.use(new twitterStrategy(AUTH_OPTIONS, verifyCallback));
+const twitterStrategy = new Strategy(AUTH_OPTIONS, verifyCallback);
+passport.use(twitterStrategy);
 const twitter = express.Router();
 twitter.get('/', passport.authenticate('twitter'));
 twitter.get('/callback', passport.authenticate('twitter', {

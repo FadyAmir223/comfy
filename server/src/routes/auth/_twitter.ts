@@ -3,7 +3,8 @@
 import { parse } from 'url';
 import express from 'express';
 import passport from 'passport';
-import { Strategy as twitterStrategy } from 'passport-twitter';
+import { Strategy } from 'passport-twitter';
+import refresh from 'passport-oauth2-refresh';
 
 import {
   SERVER_URL,
@@ -23,7 +24,11 @@ const AUTH_OPTIONS = {
   }:${SERVER_PORT}/api/auth/twitter/callback`,
 };
 
-passport.use(new twitterStrategy(AUTH_OPTIONS, verifyCallback));
+const twitterStrategy = new Strategy(AUTH_OPTIONS, verifyCallback);
+
+passport.use(twitterStrategy);
+
+// refresh.use(twitterStrategy);
 
 const twitter = express.Router();
 
