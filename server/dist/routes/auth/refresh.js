@@ -1,15 +1,17 @@
 import refresh from 'passport-oauth2-refresh';
-function refreshTokenMiddleware(req, res, next) {
-    if (!(req?.user?.provider === 'google' && req?.isAuthenticated()))
+import { updateUserAccessToken } from '../../models/users.model.js';
+async function refreshTokenMiddleware(req, res, next) {
+    const provider = req?.user?.provider;
+    if (!(['google', 'github'].includes(provider) &&
+        req?.user?.expireDate <= Math.floor(Date.now() / 1000)))
         return next();
-    refresh.requestNewAccessToken(req.user.provider, req.user.refreshToken, (err, accessToken, refreshToken) => {
+    refresh.requestNewAccessToken(provider, req.user.refreshToken, async (err, accessToken, refreshToken) => {
+        if (err)
+            return next(err);
         if (!accessToken)
             return next();
-        req.user.accessToken = accessToken;
-        console.log(accessToken);
-        req.session.save(() => {
-            return next();
-        });
+        await updateUserAccessToken(req.user.id, accessToken);
+        return next();
     });
 }
 export default refreshTokenMiddleware;

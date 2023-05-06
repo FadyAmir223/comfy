@@ -19,8 +19,10 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   imgUrl: String,
+  provider: String,
   accessToken: String,
   refreshToken: String,
+  expireDate: Number,
 });
 
 export default mongoose.model('User', userSchema);

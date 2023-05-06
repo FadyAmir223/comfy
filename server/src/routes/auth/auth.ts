@@ -4,7 +4,7 @@ import passport from 'passport';
 import { checkLoggedIn, checkPermissions } from './checks.js';
 import './passport-setup.js';
 import cookieSession from './cookie-session.js';
-import expressSession from './express-session.js';
+// import expressSession from './express-session.js';
 import refreshTokenMiddleware from './refresh.js';
 
 import google from './_google.js';
@@ -16,8 +16,8 @@ import { CLIENT_URL, CLIENT_PORT } from '../../utils/loadEnv.js';
 
 const auth = express.Router();
 
-// auth.use(cookieSession);
-auth.use(expressSession);
+auth.use(cookieSession);
+// auth.use(expressSession);
 
 auth.use((req, res, next) => {
   if (req.session && !req.session.regenerate)
@@ -47,20 +47,15 @@ auth.get('/logout', (req, res) => {
   req.logout((err) => res.redirect(`${CLIENT_URL}:${CLIENT_PORT}/`));
 });
 
-// move it outside /auth
 auth.get(
   '/secret',
   refreshTokenMiddleware,
   checkLoggedIn,
   checkPermissions,
   (req, res) => {
-    // const user = req.user;
-    // if (!user) return res.status(401).json({ success: false });
-    // return res.status(200).json(user);
     // req.session.passport.user === req.user
-
-    return res.status(200).json(req.session.passport.user);
-    // return res.status(200).json({ secret: 42 });
+    // return res.status(200).json(req.session.passport.user);
+    return res.status(200).json(req.user);
   }
 );
 

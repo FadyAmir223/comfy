@@ -1,26 +1,21 @@
 import passport from 'passport';
-// import User from '../../models/users.mongo.js';
+import { findOrCreateUser, getUser } from '../../models/users.model.js';
 
-passport.serializeUser((user, done) => {
-  done(null, user);
+passport.serializeUser(async (user, done) => {
+  await findOrCreateUser(user);
+  done(null, user.id);
 });
 
-passport.deserializeUser(async (obj, done) => {
-  return done(null, obj);
-  // search userID in database and
-  // check if access token is expired
-
-  // try {
-  //   const user = await User.findById(obj); // id
-  //   if (!user) return done(null, false);
+passport.deserializeUser(async (id, done) => {
+  const user = await getUser(id);
+  if (!user) return done(null, false);
   // know user authority
   // if (accessTokenIsExpired)
   // get new accessToken by refreshToken
   // update user in DB with new access token
-  //   return done(null, user);
-  // } catch (error) {
-  //   return done(error);
-  // }
+
+  return done(null, user);
+  // console.log('deserializeUser', { id, user });
 });
 
 // const isAccessTokenIsExpired = (accessToken) => {

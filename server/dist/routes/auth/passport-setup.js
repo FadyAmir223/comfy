@@ -1,7 +1,12 @@
 import passport from 'passport';
-passport.serializeUser((user, done) => {
-    done(null, user);
+import { findOrCreateUser, getUser } from '../../models/users.model.js';
+passport.serializeUser(async (user, done) => {
+    await findOrCreateUser(user);
+    done(null, user.id);
 });
-passport.deserializeUser(async (obj, done) => {
-    return done(null, obj);
+passport.deserializeUser(async (id, done) => {
+    const user = await getUser(id);
+    if (!user)
+        return done(null, false);
+    return done(null, user);
 });

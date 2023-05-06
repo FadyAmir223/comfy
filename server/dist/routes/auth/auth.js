@@ -2,7 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import { checkLoggedIn, checkPermissions } from './checks.js';
 import './passport-setup.js';
-import expressSession from './express-session.js';
+import cookieSession from './cookie-session.js';
 import refreshTokenMiddleware from './refresh.js';
 import google from './_google.js';
 import facebook from './_facebook.js';
@@ -10,7 +10,7 @@ import github from './_github.js';
 import twitter from './_twitter.js';
 import { CLIENT_URL, CLIENT_PORT } from '../../utils/loadEnv.js';
 const auth = express.Router();
-auth.use(expressSession);
+auth.use(cookieSession);
 auth.use((req, res, next) => {
     if (req.session && !req.session.regenerate)
         req.session.regenerate = (cb) => {
@@ -32,6 +32,6 @@ auth.get('/logout', (req, res) => {
     req.logout((err) => res.redirect(`${CLIENT_URL}:${CLIENT_PORT}/`));
 });
 auth.get('/secret', refreshTokenMiddleware, checkLoggedIn, checkPermissions, (req, res) => {
-    return res.status(200).json(req.session.passport.user);
+    return res.status(200).json(req.user);
 });
 export default auth;
