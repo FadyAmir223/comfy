@@ -28,7 +28,7 @@ const githubStrategy = new Strategy(AUTH_OPTIONS, verifyCallback);
 
 passport.use(githubStrategy);
 
-// refresh.use(githubStrategy);
+refresh.use(githubStrategy);
 
 const github = express.Router();
 

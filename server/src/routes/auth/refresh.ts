@@ -16,9 +16,11 @@ async function refreshTokenMiddleware(req, res, next) {
     provider,
     req.user.refreshToken,
     async (err, accessToken, refreshToken) => {
+      console.log({ err, accessToken, refreshToken });
+
       if (err) return next(err);
       if (!accessToken) return next();
-      await updateUserAccessToken(req.user.id, accessToken);
+      await updateUserAccessToken(req.user.id, accessToken, refreshToken);
       return next();
     }
   );

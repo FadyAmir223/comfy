@@ -10,6 +10,9 @@ const verifyCallback = (accessToken, refreshToken, profile, done) => {
         else if (provider === 'facebook') {
             url = `https://graph.facebook.com/v16.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${FACEBOOK_APP_ID}&client_secret=${FACEBOOK_APP_SECRET}&fb_exchange_token=${accessToken}`;
         }
+        let expireDate;
+        if (provider === 'github')
+            expireDate = Math.floor(Date.now() / 1000) + 8 * 60 * 60;
         if (!url)
             return done(null, {
                 id,
@@ -18,6 +21,7 @@ const verifyCallback = (accessToken, refreshToken, profile, done) => {
                 provider,
                 accessToken,
                 refreshToken,
+                expireDate,
             });
         request({ url, method: 'GET' }, (error, response, body) => {
             if (error)

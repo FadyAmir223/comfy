@@ -23,8 +23,8 @@ const getUsers = async () => {
   return await User.find({}, '-_id -__v');
 };
 
-const updateUserAccessToken = async (id, accessToken) => {
-  await User.updateOne({ id }, { $set: { accessToken: accessToken } });
+const updateUserAccessToken = async (id, accessToken, refreshToken) => {
+  await User.updateOne({ id }, { $set: { accessToken, refreshToken } });
 };
 
 export { findOrCreateUser, getUser, getUsers, updateUserAccessToken };
