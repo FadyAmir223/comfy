@@ -12,7 +12,9 @@ const AUTH_OPTIONS = {
 const twitterStrategy = new Strategy(AUTH_OPTIONS, verifyCallback);
 passport.use(twitterStrategy);
 const twitter = express.Router();
-twitter.get('/', passport.authenticate('twitter'));
+twitter.get('/', passport.authenticate('twitter', {
+    scope: ['tweet.read', 'users.read', 'offline.access'],
+}));
 twitter.get('/callback', passport.authenticate('twitter', {
     successRedirect: `${CLIENT_URL}:${CLIENT_PORT}/`,
     failureRedirect: `${CLIENT_URL}:${CLIENT_PORT}/login`,

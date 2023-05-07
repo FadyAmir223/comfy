@@ -1,10 +1,10 @@
 // https://developer.twitter.com/en/apps
+// missing: exchange refreshToken for accessToekn
 
 import { parse } from 'url';
 import express from 'express';
 import passport from 'passport';
 import { Strategy } from 'passport-twitter';
-import refresh from 'passport-oauth2-refresh';
 
 import {
   SERVER_URL,
@@ -28,11 +28,14 @@ const twitterStrategy = new Strategy(AUTH_OPTIONS, verifyCallback);
 
 passport.use(twitterStrategy);
 
-// refresh.use(twitterStrategy);
-
 const twitter = express.Router();
 
-twitter.get('/', passport.authenticate('twitter'));
+twitter.get(
+  '/',
+  passport.authenticate('twitter', {
+    scope: ['tweet.read', 'users.read', 'offline.access'],
+  })
+);
 
 twitter.get(
   '/callback',

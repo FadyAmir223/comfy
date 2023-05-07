@@ -15,6 +15,8 @@ export const {
   TWITTER_API_SECRET,
   SESSION_KEY_1,
   SESSION_KEY_2,
+  TWITTER_CLIENT_ID,
+  TWITTER_CLIENT_SECRET,
 } = process.env;
 
 dotenv.config({

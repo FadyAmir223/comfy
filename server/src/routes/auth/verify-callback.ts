@@ -27,7 +27,7 @@ const verifyCallback = (accessToken, refreshToken, profile, done) => {
       url = `https://graph.facebook.com/v16.0/oauth/access_token?grant_type=fb_exchange_token&client_id=${FACEBOOK_APP_ID}&client_secret=${FACEBOOK_APP_SECRET}&fb_exchange_token=${accessToken}`;
     }
 
-    let expireDate;
+    let expireDate; // githubt don't provide endpoint for lifespan
     if (provider === 'github')
       expireDate = Math.floor(Date.now() / 1000) + 8 * 60 * 60;
 
