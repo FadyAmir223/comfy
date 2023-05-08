@@ -36,7 +36,7 @@ google.get(
   '/',
   passport.authenticate('google', {
     scope: ['email', 'profile'],
-    accessType: 'offline', // request refreshToken
+    accessType: 'offline',
     // prompt: 'consent',
   })
 );

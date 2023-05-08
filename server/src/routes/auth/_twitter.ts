@@ -1,5 +1,5 @@
 // https://developer.twitter.com/en/apps
-// missing: exchange refreshToken for accessToekn
+// problem: exchange refreshToken for accessToekn
 
 import { parse } from 'url';
 import express from 'express';

@@ -1,3 +1,4 @@
+// don't use
 import expressSession from 'express-session';
 import MongoStore from 'connect-mongo';
 
@@ -10,15 +11,11 @@ export default expressSession({
   resave: true,
   saveUninitialized: false,
   cookie: {
-    maxAge: 10 * 1000,
-    // maxAge: 24 * 60 * 60 * 1000,
+    maxAge: 24 * 60 * 60 * 1000,
   },
   store: MongoStore.create({
     mongoUrl: DB_URL,
-    autoRemove: 'native',
-    // autoRemove: 'interval',
-    // autoRemoveInterval: 2,
-    ttl: 2 * 1000,
+    autoRemove: 'disabled',
     // touchAfter: 24 * 60 * 60
   }),
 });

@@ -8,11 +8,10 @@ export default expressSession({
     resave: true,
     saveUninitialized: false,
     cookie: {
-        maxAge: 10 * 1000,
+        maxAge: 24 * 60 * 60 * 1000,
     },
     store: MongoStore.create({
         mongoUrl: DB_URL,
-        autoRemove: 'native',
-        ttl: 2 * 1000,
+        autoRemove: 'disabled',
     }),
 });
