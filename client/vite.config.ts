@@ -2,11 +2,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
+import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig({
   plugins: [
     react(),
     svgr(),
+    createHtmlPlugin({ minify: true }),
     ViteImageOptimizer({
       png: {
         quality: 80,

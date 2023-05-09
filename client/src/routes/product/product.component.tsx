@@ -1,34 +1,34 @@
 // import { useParams } from 'react-router-dom';
 // const { id } = useParams<string>();
 
-import { useState } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const Product = () => {
   const [tProduct, i18nProduct] = useTranslation('product');
-  const [tProducts, i18nProducts] = useTranslation('products');
+  const [tProducts] = useTranslation('products');
 
-  const [count, setCount] = useState(0);
-  const [name_, setName] = useState('fady');
+  const handleLanguageChange = () => {
+    const language = i18nProduct.language === 'ar' ? 'en' : 'ar';
+    i18nProduct.changeLanguage(language);
+    localStorage.language = language;
+  };
 
   return (
-    <div
-      className={`${
-        i18nProduct.language === 'ar' ? 'text-right' : 'text-left'
-      }`}
-    >
+    <div dir={i18nProduct.language === 'ar' ? 'rtl' : 'ltr'}>
       <button
         className="rtl:bg-red-500 ltr:bg-blue-500"
-        onClick={() =>
-          i18nProduct.changeLanguage(
-            i18nProduct.language === 'ar' ? 'en' : 'ar'
-          )
-        }
+        onClick={handleLanguageChange}
       >
         {i18nProduct.language === 'ar' ? 'en' : 'ar'}
       </button>
-      <p className="">{tProduct('product')}</p>
-      <p className="">{tProducts('products')}</p>
+
+      <p>
+        {`${tProducts('title')} 
+        ${tProduct('title')} 
+        ${tProduct('desc.name')} 
+        ${tProduct('desc.price')} 
+        ${tProduct('msg', { msgCtr: 2 })}`}
+      </p>
     </div>
   );
 };

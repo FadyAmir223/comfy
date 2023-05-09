@@ -8,7 +8,7 @@
 
     "skipLibCheck": true,
     "removeComments": true,
-    "resolveJsonModule": true,
+    // "resolveJsonModule": true,
      
     // "strict": true,
     // "noUnusedLocals": true,
