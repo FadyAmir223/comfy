@@ -1,21 +1,22 @@
 import nodemailer from 'nodemailer';
+import { EMAIL_APP_PASSWORD } from '../../utils/loadEnv.js';
 async function handleMailSend(req, res) {
+    const options = {
+        from: 'fadyamir223@gmail.com',
+        to: 'fadytgk@gmial.com',
+        subject: 'title',
+        text: 'body',
+    };
     let transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
+        service: 'gmail',
         auth: {
-            user: 'fezza@gmail.com',
-            pass: '1234',
+            user: options.from,
+            pass: EMAIL_APP_PASSWORD,
+        },
+        tls: {
+            rejectUnauthorized: false,
         },
     });
-    let info = await transporter.sendMail({
-        from: '"Fezza" <fezza@gmail.com>',
-        to: 'jessy@gmail.com',
-        subject: 'Hello from Nodemailer',
-        text: 'Hello world?',
-        html: '<b>Hello world?</b>',
-    });
-    console.log('Message sent: %s', info.messageId);
+    await transporter.sendMail(options, (error, info) => res.json({ message: error ? error : info.response }));
 }
 export { handleMailSend };

@@ -17,6 +17,7 @@ export const {
   SESSION_KEY_2,
   TWITTER_CLIENT_ID,
   TWITTER_CLIENT_SECRET,
+  EMAIL_APP_PASSWORD,
 } = process.env;
 
 dotenv.config({

@@ -1,36 +1,30 @@
+// enable 2-step verification -> get app password
+
 import nodemailer from 'nodemailer';
-
-/*
-jericho
-kokytina2612
-
-tgk
-kokytina2612
-
-223
-christover23
-*/
+import { EMAIL_APP_PASSWORD } from '../../utils/loadEnv.js';
 
 async function handleMailSend(req, res) {
+  const options = {
+    from: 'fadyamir223@gmail.com',
+    to: 'fadytgk@gmial.com', // req.body.email
+    subject: 'title',
+    text: 'body',
+  };
+
   let transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
+    service: 'gmail',
     auth: {
-      user: 'fezza@gmail.com',
-      pass: '1234',
+      user: options.from,
+      pass: EMAIL_APP_PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false, // self signed https
     },
   });
 
-  let info = await transporter.sendMail({
-    from: '"Fezza" <fezza@gmail.com>',
-    to: 'jessy@gmail.com',
-    subject: 'Hello from Nodemailer',
-    text: 'Hello world?',
-    html: '<b>Hello world?</b>',
-  });
-
-  console.log('Message sent: %s', info.messageId);
+  await transporter.sendMail(options, (error, info) =>
+    res.json({ message: error ? error : info.response })
+  );
 }
 
 export { handleMailSend };

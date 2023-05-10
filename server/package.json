@@ -10,7 +10,8 @@
     "cluster": "pm2 start dist/server.js -i max",
     "test": "tsc && jest",
     "test-watch": "concurrently \"tsc -w\" \"jest --watch\"",
-    "cc": "tsc src/server.ts && nodemon dist/server.js"
+    "cc": "tsc src/server.ts && nodemon dist/server.js",
+    "tsc": "tsc test.ts"
   },
   "keywords": [],
   "author": "",
